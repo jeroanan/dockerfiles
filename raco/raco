@@ -1,0 +1,9 @@
+#!/bin/bash
+
+docker run --rm \
+  -i \
+  -e DISPLAY=${DISPLAY} \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -v $HOME:/home/developer \
+  raco:latest $*
+  
