@@ -1,17 +1,13 @@
-FROM ubuntu:latest
-ENV TZ=Europe/London
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+FROM alpine:latest
 
-RUN apt update && apt install -y vim-gtk3 git
+RUN apk add --no-cache gvim git ttf-inconsolata bash
 
 ENV USER drw
 ENV HOME /home/${USER}
 
-RUN  useradd -d ${HOME} -m ${USER} && \
-    passwd -d ${USER}
+RUN  adduser --home ${HOME} -D ${USER}
     
 USER ${USER}
 WORKDIR ${HOME}
-
 
 ENTRYPOINT ["gvim", "-f"]
