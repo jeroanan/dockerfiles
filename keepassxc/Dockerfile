@@ -1,14 +1,11 @@
-FROM ubuntu:latest
-ENV TZ=Europe/London
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+FROM alpine:latest
 
-RUN apt update && apt install -y keepassxc
+RUN apk add --no-cache keepassxc ttf-ubuntu-font-family bash
 
-ENV USER drw
+ENV USER developer
 ENV HOME /home/${USER}
 
-RUN  useradd -d ${HOME} -m ${USER} && \
-    passwd -d ${USER}
+RUN  adduser -D --home ${HOME} ${USER}
     
 USER ${USER}
 WORKDIR ${HOME}
