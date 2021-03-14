@@ -1,10 +1,18 @@
 #!/bin/bash
 
-PARAM=$1
-FC=${PARAM:0:1}
+PARAM=""
+FC=""
+COMMAND="gvim:latest"
 
-if [ $FC != "/" ]; then
-  PARAM=$PWD/$PARAM
+if [ $# -gt 0 ]; then
+  PARAM=$1
+  FC=${PARAM:0:1}
+
+  if [ "$FC" != "/" ]; then
+    PARAM=$PWD/$PARAM
+  fi
+
+  COMMAND=$COMMAND" "$PARAM
 fi
 
 docker run \
@@ -14,5 +22,6 @@ docker run \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -v $HOME:/home/drw \
   --name gvim \
-  gvim:latest $PARAM
+  $COMMAND
+  #gvim:latest $PARAM
   
