@@ -1,11 +1,18 @@
 #!/bin/bash
 
+PARAM=$1
+FC=${PARAM:0:1}
+
+if [ $FC != "/" ]; then
+  PARAM=$PWD/$PARAM
+fi
+
 docker run \
   --rm \
   -d \
   -e DISPLAY=${DISPLAY} \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
-  -v $HOME:/home/developer \
+  -v $HOME:/home/drw \
   --name gvim \
-  gvim:latest
+  gvim:latest $PARAM
   
