@@ -18,7 +18,6 @@ RUN useradd -d ${HOME} -m ${USER} && \
 USER ${USER}
 WORKDIR ${HOME}
 
-COPY entrypoint.sh ./entrypoint.sh
 
-ENTRYPOINT ["./entrypoint.sh"]
+CMD "brave-browser"
   
