@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-RUN apk add --no-cache claws-mail ttf-ubuntu-font-family bash
+RUN apk add --no-cache claws-mail ttf-freefont bash
 
 ENV USER user
 ENV HOME /home/${USER}

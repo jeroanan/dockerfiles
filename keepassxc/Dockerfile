@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-RUN apk add --no-cache keepassxc ttf-ubuntu-font-family bash
+RUN apk add --no-cache keepassxc ttf-freefont bash
 
 ENV USER developer
 ENV HOME /home/${USER}
