@@ -1,9 +1,9 @@
 #!/bin/bash
 
 docker run \
-  --rm \
+  -d \
   -e DISPLAY=${DISPLAY} \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
-  -v lagrange:/home/user \
-  lagrange:latest
+  --name pw3270 \
+  pw3270:latest
   
