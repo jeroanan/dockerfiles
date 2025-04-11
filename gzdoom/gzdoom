@@ -1,0 +1,18 @@
+#!/bin/bash
+
+USER_ID=$(id -u)
+
+docker start gzdoom || \
+docker run \
+  -d \
+  --name gzdoom \
+  -e DISPLAY=${DISPLAY} \
+  -e DOOMWADDIR=/home/user/.local/share/games/doom/ \
+  -v $HOME/.local/share/games/doom/:/home/user/.local/share/games/doom/ \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -v /dev/dri/card1:/dev/dri/card1 \
+  -v /run/user/${USER_ID}/pulse:/run/user/1000/pulse \
+  -v $HOME/.config/gzdoom/:/home/user/.config/gzdoom/ \
+  gzdoom:latest
+
+  
