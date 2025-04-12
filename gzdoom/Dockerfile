@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.21
 
 RUN apk update
 RUN apk add --no-cache gzdoom ttf-freefont mesa-gl 
@@ -14,4 +14,4 @@ RUN adduser ${USER} audio
 USER ${USER}
 WORKDIR ${HOME}
 
-CMD "gzdoom"
+CMD ["gzdoom"]
