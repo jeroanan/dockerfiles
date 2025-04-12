@@ -8,12 +8,8 @@ docker run \
   --name openttd \
   -e DISPLAY=${DISPLAY} \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
-  -v /dev/dri/card1:/dev/dri/card1 \
-  -v /run/user/${USER_ID}/pulse:/run/user/1001/pulse \
   -v ${HOME}/.local/share/openttd/:/root/.local/share/openttd \
   -v ${HOME}/.config/openttd/:/root/.config/openttd \
-  --device /dev/video0 \
-  --device /dev/snd \
   --privileged \
   openttd:latest
 
