@@ -1,15 +1,14 @@
 FROM alpine:3.21
 
-RUN apk update
-RUN apk add --no-cache gzdoom ttf-freefont mesa-gl 
-
-COPY pulse-client.conf /etc/pulse/client.conf
-
 ENV USER=user
 ENV HOME=/home/${USER}
 
-RUN  adduser --home ${HOME} -D ${USER} 
-RUN adduser ${USER} audio
+RUN apk update && \
+    apk add --no-cache gzdoom ttf-freefont mesa-gl && \
+    adduser --home ${HOME} -D ${USER} && \
+    adduser ${USER} audio
+
+COPY pulse-client.conf /etc/pulse/client.conf
     
 USER ${USER}
 WORKDIR ${HOME}

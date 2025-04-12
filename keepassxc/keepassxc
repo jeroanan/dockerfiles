@@ -1,10 +1,11 @@
 #!/bin/bash
 
 docker run \
-  --rm \
-  -d \
-  -e DISPLAY=${DISPLAY} \
-  -v /tmp/.X11-unix:/tmp/.X11-unix \
-  -v $HOME:/home/developer \
+    --rm \
+    -d \
+    -e DISPLAY=${DISPLAY} \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v $HOME:/home/developer \
+    -v /dev/dri/card1:/dev/dri/card1 \
   keepassxc:latest
   
