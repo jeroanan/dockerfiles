@@ -1,0 +1,18 @@
+#!/bin/bash
+
+USER_ID=$(id -u)
+
+docker run \
+  --rm \
+  -d \
+  --name openttd \
+  -e DISPLAY=${DISPLAY} \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -v ${HOME}/.local/share/openttd/:/root/.local/share/openttd \
+  -v ${HOME}/.config/openttd/:/root/.config/openttd \
+  -p 3979:3979 \
+  --privileged \
+  openttd:latest
+
+  
+
