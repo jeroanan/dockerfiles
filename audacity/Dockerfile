@@ -1,15 +1,16 @@
-FROM ubuntu:25.04
+FROM alpine:3.21@sha256:a8560b36e8b8210634f77d9f7f9efd7ffa463e380b75e2e74aff4511df3ef88c
 
-RUN apt update  && \
-    export DEBIAN_FRONTEND=noninteractive && \
-    apt-get install -y tzdata && \
-    ln -fs /usr/share/zoneinfo/Europe/London /etc/localtime && \
-    dpkg-reconfigure --frontend noninteractive tzdata && \
-    apt install -y audacity && \
-    rm -rf /var/lib/apt/lists/* && \
-    useradd -ms /bin/bash user && \
-    usermod -a -G audio user
+ENV USER=user
+ENV HOME=/home/${USER}
 
-#USER user
+RUN apk update && \
+    apk add audacity ttf-freefont && \
+    adduser --home ${HOME} -D ${USER} && \
+    adduser ${USER} audio
+
+COPY pulse-client.conf /etc/pulse/client.conf
+
+USER user
+WORKDIR ${HOME}
 
 CMD ["audacity"]

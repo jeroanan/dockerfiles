@@ -1,14 +1,16 @@
 #!/bin/bash
 
+USER_ID=$(id -u)
+
 docker run \
-  -d \
-  --rm \
   -e DISPLAY=${DISPLAY} \
-  -v /tmp/.X11-unix:/tmp/.X11-unix \
-  -v $HOME:/home/user/ \
   --network none \
   --name audacity \
+  -v $HOME:/home/user/ \
   -v /dev/snd:/dev/snd \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -v /dev/dri/card1:/dev/dri/card1 \
+  -v /run/user/${USER_ID}/pulse:/run/user/1000/pulse \
   --privileged \
   audacity:latest
   
