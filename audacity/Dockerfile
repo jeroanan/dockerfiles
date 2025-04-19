@@ -10,6 +10,6 @@ RUN apt update  && \
     useradd -ms /bin/bash user && \
     usermod -a -G audio user
 
-USER user
+#USER user
 
 CMD ["audacity"]
