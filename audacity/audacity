@@ -4,6 +4,8 @@ USER_ID=$(id -u)
 
 docker run \
   -e DISPLAY=${DISPLAY} \
+  -d \
+  --rm \
   --network none \
   --name audacity \
   -v $HOME:/home/user/ \
