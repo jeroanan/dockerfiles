@@ -13,4 +13,4 @@ COPY pulse-client.conf /etc/pulse/client.conf
 USER ${USER}
 WORKDIR ${HOME}
 
-CMD ["gzdoom"]
+ENTRYPOINT ["gzdoom"]

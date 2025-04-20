@@ -2,17 +2,35 @@
 
 USER_ID=$(id -u)
 
-docker start gzdoom || \
+DOOMWADSVOL=doomwads
+DOOMCONFIGVOL=doomconfig
+
+# This is the mount point on the container.
+DOOMWADDIR=/home/user/.local/share/games/doom/
+
+docker volume ls | grep $DOOMWADSVOL
+if [ $? -ne 0 ]; then
+  docker volume create $DOOMWADSVOL
+  echo You will need to copy wads to $DOOMWADSVOL volume.
+fi
+
+docker volume ls | grep $DOOMCONFIGVOL
+if [ $? -ne 0 ]; then
+  docker volume create $DOOMCONFIGVOL
+  echo 'Created new volume for doom config.'
+fi
+
 docker run \
   -d \
+  --rm \
   --name gzdoom \
   -e DISPLAY=${DISPLAY} \
-  -e DOOMWADDIR=/home/user/.local/share/games/doom/ \
-  -v $HOME/.local/share/games/doom/:/home/user/.local/share/games/doom/ \
+  -e DOOMWADDIR=$DOOMWADDIR \
+  --mount type=volume,src=$DOOMWADSVOL,dst=$DOOMWADDIR \
+  --mount type=volume,src=$DOOMCONFIGVOL,dst=/home/user/.config/gzdoom/ \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -v /dev/dri/card1:/dev/dri/card1 \
   -v /run/user/${USER_ID}/pulse:/run/user/1000/pulse \
-  -v $HOME/.config/gzdoom/:/home/user/.config/gzdoom/ \
-  gzdoom:latest
+  gzdoom:latest $*
 
   
